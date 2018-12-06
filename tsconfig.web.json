@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "outDir": "ts-build",
+    "sourceMap": true,
+    "module": "esnext",
+    "target": "es2017",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "paths": {
+      "*": ["./src/*"]
+    },
+    "lib": ["es2017", "dom"],
+    "allowJs": true,
+    "plugins": [
+      {
+        "name": "tslint-language-service",
+        "configFile": "./tslint.typestrict.json"
+      }
+    ]
+  },
+  "include": [
+    "./src/**/*"
+  ]
+}
