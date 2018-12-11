@@ -1,5 +1,5 @@
 {
-  "extends": "typestrict",
+  "extends": ["typestrict", "tslint-config-prettier"],
   "rules": {
     "semicolon": [true, "never"],
     "quotemark": [true, "single", "avoid-escape"],
