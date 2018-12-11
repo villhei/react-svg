@@ -1,11 +1,8 @@
 
 import * as React from 'react'
 import styled from 'styled-components'
+import { Container } from '~/Texts/common'
 
-const Container = styled.svg`
-  width: 600px;
-  height: 200px;
-`
 const TextView = styled.text`
   font-size: 5rem;
   font-weight: 550;
