@@ -1,14 +1,12 @@
 import * as React from 'react'
-import styled, { css } from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
 import { transparentize } from 'polished'
-import { Container, Pattern, DEFAULT_PATTERN } from '~/Texts/common'
+import { Container, DEFAULT_PATTERN, Pattern } from '~/Texts/common'
 import { range } from '~/util'
 
 const Text = styled.text`
   font-size: 4.5rem;
   font-weight: 550;
-  stroke-width: 0.5;
-  stroke: ${props => props.color};
 `
 type SpotsProps = {
   color: string
@@ -21,16 +19,29 @@ const makeChildStyles = (count: number) =>
       & circle:nth-child(${count}n + ${value}) {
         fill: ${(props: SpotsProps) =>
           transparentize(index * 0.05 + 0.1, props.color)};
+        stroke: ${(props: SpotsProps) =>
+          transparentize(index * 0.05 + 0.1, props.color)};
+        animation-delay: ${(index * 2) / count} * s;
       }
     `
   )
 
-const Pattern = styled.g`
+const PatternGroup = styled.g`
   ${(props: SpotsProps) => makeChildStyles(props.count)}
 `
 
+const anim = keyframes`
+  50% {
+    stroke-width: 15;
+  }
+  100% {
+    stroke-width: 0;
+  }
+`
+
 const Circle = styled.circle`
-  stroke-width: 5;
+  animation: ${anim} 3s infinite;
+  stroke-width: 0;
   stroke-opacity: 0.5;
   fill: transparent;
 `
@@ -56,20 +67,20 @@ const PatternContent = ({ pattern }: PatternProps) => (
   </>
 )
 
-const PatternedText = ({ color, children }: Props) => (
+const AnimatedPatternText = ({ color, children }: Props) => (
   <div>
     <Container viewBox='0 0 600 200'>
       <defs>
         <pattern
-          id='spots'
+          id='spots-animated'
           viewBox='0 0 80 80'
           patternUnits='userSpaceOnUse'
           width='80'
           height='80'
         >
-          <Pattern color={color} count={DEFAULT_PATTERN.length}>
+          <PatternGroup color={color} count={DEFAULT_PATTERN.length}>
             <PatternContent pattern={DEFAULT_PATTERN} />
-          </Pattern>
+          </PatternGroup>
         </pattern>
       </defs>
       <Text
@@ -77,7 +88,7 @@ const PatternedText = ({ color, children }: Props) => (
         x='50%'
         y='50%'
         color={color}
-        fill='url(#spots)'
+        fill='url(#spots-animated)'
       >
         {children}
       </Text>
@@ -85,4 +96,4 @@ const PatternedText = ({ color, children }: Props) => (
   </div>
 )
 
-export default PatternedText
+export default AnimatedPatternText
