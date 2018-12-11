@@ -34,6 +34,7 @@
   },
   "scripts": {
     "start": "parcel src/index.html",
+    "build": "parcel build src/index.html -d docs/",
     "lint": "tslint --project ."
   },
   "dependencies": {
