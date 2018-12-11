@@ -64,4 +64,4 @@ var e=require("process");Object.defineProperty(exports,"__esModule",{value:!0}),
 },{"react":"1n8/","styled-components":"tFSs","~/Texts/01_linear_gradient":"gSwF","~/Texts/02_radial_gradient":"eGkt","~/Texts/03_pattern_text":"Dapv","~/Texts/04_animated_pattern":"uqAb"}],"zo2T":[function(require,module,exports) {
 "use strict";var e=n(require("react")),r=n(require("react-dom")),t=o(require("~/Main"));function o(e){return e&&e.__esModule?e:{default:e}}function n(e){if(e&&e.__esModule)return e;var r={};if(null!=e)for(var t in e)if(Object.prototype.hasOwnProperty.call(e,t)){var o=Object.defineProperty&&Object.getOwnPropertyDescriptor?Object.getOwnPropertyDescriptor(e,t):{};o.get||o.set?Object.defineProperty(r,t,o):r[t]=e[t]}return r.default=e,r}console.log("Hello, world!");var l=document.getElementById("root");r.render(e.createElement(t.default,null),l);
 },{"react":"1n8/","react-dom":"NKHc","~/Main":"aO7u"}]},{},["zo2T"], null)
-//# sourceMappingURL=/src.bb5f33e7.map
+//# sourceMappingURL=src.bb5f33e7.map
