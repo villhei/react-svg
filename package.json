@@ -22,7 +22,7 @@
   "scripts": {
     "start": "parcel src/index.html",
     "build": "parcel build src/index.html",
-    "build:github": "parcel build --public-url .  src/index.html -d docs",
+    "build:github": "rm -rf docs && parcel build --public-url .  src/index.html -d docs",
     "lint": "tslint --project .",
     "test": "jest"
   },
