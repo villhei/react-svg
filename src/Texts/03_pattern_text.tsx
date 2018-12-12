@@ -1,7 +1,7 @@
 import * as React from 'react'
 import styled, { css } from 'styled-components'
 import { transparentize } from 'polished'
-import { Container, Pattern, DEFAULT_PATTERN } from '~/Texts/common'
+import { DefaultContainer, Pattern, DEFAULT_PATTERN } from '~/Texts/common'
 import { range } from '~/util'
 
 const Text = styled.text`
@@ -57,32 +57,31 @@ const PatternContent = ({ pattern }: PatternProps) => (
 )
 
 const PatternedText = ({ color, children }: Props) => (
-  <div>
-    <Container viewBox='0 0 600 200'>
-      <defs>
-        <pattern
-          id='spots'
-          viewBox='0 0 80 80'
-          patternUnits='userSpaceOnUse'
-          width='80'
-          height='80'
-        >
-          <Pattern color={color} count={DEFAULT_PATTERN.length}>
-            <PatternContent pattern={DEFAULT_PATTERN} />
-          </Pattern>
-        </pattern>
-      </defs>
-      <Text
-        textAnchor='middle'
-        x='50%'
-        y='50%'
-        color={color}
-        fill='url(#spots)'
+  <DefaultContainer>
+    <defs>
+      <pattern
+        id='spots'
+        viewBox='0 0 80 80'
+        patternUnits='userSpaceOnUse'
+        width='80'
+        height='80'
       >
-        {children}
-      </Text>
-    </Container>
-  </div>
+        <Pattern color={color} count={DEFAULT_PATTERN.length}>
+          <PatternContent pattern={DEFAULT_PATTERN} />
+        </Pattern>
+      </pattern>
+    </defs>
+    <Text
+      textAnchor='middle'
+      x='50%'
+      y='50%'
+      dy='.35em'
+      color={color}
+      fill='url(#spots)'
+    >
+      {children}
+    </Text>
+  </DefaultContainer>
 )
 
 export default PatternedText

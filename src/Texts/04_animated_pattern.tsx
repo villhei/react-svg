@@ -1,7 +1,7 @@
 import * as React from 'react'
 import styled, { css, keyframes } from 'styled-components'
 import { transparentize } from 'polished'
-import { Container, DEFAULT_PATTERN, Pattern } from '~/Texts/common'
+import { DefaultContainer, DEFAULT_PATTERN, Pattern } from '~/Texts/common'
 import { range } from '~/util'
 
 const Text = styled.text`
@@ -34,9 +34,6 @@ const anim = keyframes`
   50% {
     stroke-width: 15;
   }
-  100% {
-    stroke-width: 0;
-  }
 `
 
 const Circle = styled.circle`
@@ -68,32 +65,31 @@ const PatternContent = ({ pattern }: PatternProps) => (
 )
 
 const AnimatedPatternText = ({ color, children }: Props) => (
-  <div>
-    <Container viewBox='0 0 600 200'>
-      <defs>
-        <pattern
-          id='spots-animated'
-          viewBox='0 0 80 80'
-          patternUnits='userSpaceOnUse'
-          width='80'
-          height='80'
-        >
-          <PatternGroup color={color} count={DEFAULT_PATTERN.length}>
-            <PatternContent pattern={DEFAULT_PATTERN} />
-          </PatternGroup>
-        </pattern>
-      </defs>
-      <Text
-        textAnchor='middle'
-        x='50%'
-        y='50%'
-        color={color}
-        fill='url(#spots-animated)'
+  <DefaultContainer>
+    <defs>
+      <pattern
+        id='spots-animated'
+        viewBox='0 0 80 80'
+        patternUnits='userSpaceOnUse'
+        width='80'
+        height='80'
       >
-        {children}
-      </Text>
-    </Container>
-  </div>
+        <PatternGroup color={color} count={DEFAULT_PATTERN.length}>
+          <PatternContent pattern={DEFAULT_PATTERN} />
+        </PatternGroup>
+      </pattern>
+    </defs>
+    <Text
+      textAnchor='middle'
+      x='50%'
+      y='50%'
+      dy='.35em'
+      color={color}
+      fill='url(#spots-animated)'
+    >
+      {children}
+    </Text>
+  </DefaultContainer>
 )
 
 export default AnimatedPatternText

@@ -1,9 +1,33 @@
+import * as React from 'react'
 import styled from 'styled-components'
 
-export const Container = styled.svg`
-  width: 600px;
-  height: 200px;
-`
+type ContainerProps = {
+  width?: string
+  height?: string
+  children?: React.ReactNode
+}
+
+const DEFAULT_PROPS = {
+  width: '600px',
+  height: '150px',
+  children: null
+}
+export const DefaultContainer = (props?: ContainerProps) => {
+  const { width, height, children } = { ...DEFAULT_PROPS, ...props }
+
+  const Svg = styled.svg`
+    width: ${width};
+    height: ${height};
+    display: block;
+  `
+
+  const svgProps = {
+    viewBox: `0 0 ${width} ${height}`,
+    width: '0.8vw',
+    height: '0.2vw'
+  }
+  return <Svg {...svgProps}>{children}</Svg>
+}
 
 export type Pattern = Array<number[]>
 

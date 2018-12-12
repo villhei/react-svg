@@ -1,7 +1,6 @@
-
 import * as React from 'react'
 import styled from 'styled-components'
-import { Container } from '~/Texts/common'
+import { DefaultContainer } from '~/Texts/common'
 
 const TextView = styled.text`
   font-size: 5rem;
@@ -9,29 +8,29 @@ const TextView = styled.text`
 `
 
 type Props = {
-  fromColor: string,
+  fromColor: string
   toColor: string
   children: React.ReactNode
 }
 
 const LinearGradientText = (props: Props) => (
-  <div>
-    <Container viewBox='0 0 600 200'>
-      <defs>
-        <linearGradient id='gr-simple' x1='0' y1='0' x2='0%' y2='100%'>
-          <stop stopColor={props.fromColor} offset='0%'/>
-          <stop stopColor={props.toColor} offset='90%'/>
-        </linearGradient>
-      </defs>
-      <TextView
-        textAnchor='middle'
-        x='50%'
-        y='50%'
-        fill='url(#gr-simple)'>
+  <DefaultContainer>
+    <defs>
+      <linearGradient id='gr-simple' x1='0' y1='0' x2='0%' y2='100%'>
+        <stop stopColor={props.fromColor} offset='0%' />
+        <stop stopColor={props.toColor} offset='90%' />
+      </linearGradient>
+    </defs>
+    <TextView
+      textAnchor='middle'
+      x='50%'
+      y='50%'
+      dy='.35em'
+      fill='url(#gr-simple)'
+    >
       {props.children}
-      </TextView>
-    </Container>
-    </div>
+    </TextView>
+  </DefaultContainer>
 )
 
 export default LinearGradientText

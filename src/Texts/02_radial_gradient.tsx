@@ -1,6 +1,6 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import { Container } from '~/Texts/common'
+import { DefaultContainer } from '~/Texts/common'
 
 const Text = styled.text`
   font-size: 4rem;
@@ -8,15 +8,15 @@ const Text = styled.text`
 `
 
 type Props = {
-  fromColor: string,
+  fromColor: string
   toColor: string
   children: React.ReactNode
 }
 
 const RadialGradientText = (props: Props) => {
-  const {toColor, fromColor} = props
-  return <div>
-    <Container viewBox='0 0 600 200'>
+  const { toColor, fromColor } = props
+  return (
+    <DefaultContainer>
       <defs>
         <radialGradient id='gr-radial' cx='50%' cy='50%' r='100%'>
           <animate
@@ -25,15 +25,21 @@ const RadialGradientText = (props: Props) => {
             dur='5s'
             repeatCount='indefinite'
           />
-          <stop stopColor={toColor} offset='0'/>
+          <stop stopColor={toColor} offset='0' />
           <stop stopColor={fromColor} offset='100%' />
         </radialGradient>
       </defs>
-      <Text textAnchor='middle' x='50%' y='50%' fill='url(#gr-radial)'>
+      <Text
+        textAnchor='middle'
+        x='50%'
+        y='50%'
+        dy='.35em'
+        fill='url(#gr-radial)'
+      >
         {props.children}
       </Text>
-    </Container>
-  </div>
+    </DefaultContainer>
+  )
 }
 
 export default RadialGradientText
