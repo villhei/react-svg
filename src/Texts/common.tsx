@@ -8,7 +8,7 @@ type ContainerProps = {
 }
 
 const DEFAULT_CONTAINER_PROPS = {
-  width: '600px',
+  width: '400px',
   height: '150px',
   children: null
 }
@@ -40,7 +40,7 @@ type TextViewProps = {
 }
 
 const DEFAULT_TEXTVIEW_PROPS = {
-  fontSize: '8rem',
+  fontSize: '4em',
   fontWeight: 550,
   fill: undefined,
   stroke: undefined,

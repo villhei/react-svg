@@ -7,7 +7,7 @@ import {
   Pattern,
   DEFAULT_PATTERN
 } from '~/Texts/common'
-import { range } from '~/util'
+import { range, generateId, getURI } from '~/util'
 
 type SpotsProps = {
   color: string
@@ -54,11 +54,13 @@ const PatternContent = ({ pattern }: PatternProps) => {
   return <>{Circles}</>
 }
 
+const patternId = generateId()
+
 const PatternedText = ({ color, children }: Props) => (
   <DefaultContainer>
     <defs>
       <pattern
-        id="spots"
+        id={patternId}
         viewBox="0 0 80 80"
         patternUnits="userSpaceOnUse"
         width="80"
@@ -69,7 +71,7 @@ const PatternedText = ({ color, children }: Props) => (
         </Pattern>
       </pattern>
     </defs>
-    <TextView shadow={true} color={color} fill="url(#spots)">
+    <TextView shadow={true} color={color} fill={getURI(patternId)}>
       {children}
     </TextView>
   </DefaultContainer>

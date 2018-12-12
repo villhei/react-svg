@@ -1,10 +1,13 @@
 import * as React from 'react'
 import styled, { css, keyframes } from 'styled-components'
 import { DefaultContainer } from '~/Texts/common'
+import { getURI, generateId } from '~/util'
 
 const ANIM_SECONDS = 6
 const LINE_LENGTH = 70
 const LINE_GAP = 10
+
+const strokeTextId = generateId()
 
 function getText(colors: string[]): JSX.Element[] {
   const colorCount = colors.length
@@ -37,7 +40,7 @@ function getText(colors: string[]): JSX.Element[] {
     })}
   `
   return colors.map((_color, i) => (
-    <Text as="use" key={i} xlinkHref="#s-text" />
+    <Text as="use" key={i} xlinkHref={`#${strokeTextId}`} />
   ))
 }
 type Props = {
@@ -47,13 +50,13 @@ type Props = {
 
 const AnimatedStrokeMultiText = ({ colors, children }: Props) => (
   <DefaultContainer>
-    <symbol id="s-text">
+    <symbol id={strokeTextId}>
       <text
         textAnchor="middle"
         x="50%"
         y="50%"
         dy=".35em"
-        filter="url(#global-shadow)"
+        filter={getURI('global-shadow')}
       >
         {children}
       </text>

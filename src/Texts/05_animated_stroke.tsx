@@ -1,13 +1,6 @@
 import * as React from 'react'
-import styled from 'styled-components'
 import { DefaultContainer, TextView } from '~/Texts/common'
-
-const Text = styled.text`
-  font-size: 4.5rem;
-  stroke-width: 2;
-  fill: transparent;
-  font-weight: 550;
-`
+import { generateId, getURI } from '~/util'
 
 type Props = {
   toColor: string
@@ -15,10 +8,12 @@ type Props = {
   children: string
 }
 
+const animationId = generateId()
+
 const AnimatedStrokeText = ({ toColor, fromColor, children }: Props) => (
   <DefaultContainer>
     <defs>
-      <radialGradient id='gradient' cx='50%' cy='50%' r='100%'>
+      <radialGradient id={animationId} cx='50%' cy='50%' r='100%'>
         <animate
           attributeName='cx'
           values='0%;150%;-50%;0%'
@@ -33,7 +28,7 @@ const AnimatedStrokeText = ({ toColor, fromColor, children }: Props) => (
       fontSize='4.5em'
       shadow={true}
       fill='transparent'
-      stroke='url(#gradient)'
+      stroke={getURI(animationId)}
     >
       {children}
     </TextView>

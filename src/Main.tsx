@@ -1,5 +1,6 @@
 import * as React from 'react'
 import styled from 'styled-components'
+import wordlist from '~/wordlist'
 
 import LinearGradient from '~/Texts/01_linear_gradient'
 import AnimatedGradient from '~/Texts/02_radial_gradient'
@@ -44,10 +45,10 @@ const ItemTitle = styled.h2`
 const ShadowFilter = () => (
   <svg style={{ visibility: 'hidden' }}>
     <defs>
-      <filter id='global-shadow' x='0' y='0' width='200%' height='200%'>
-        <feOffset result='offOut' in='SourceAlpha' dx='0' dy='20' />
-        <feGaussianBlur result='blurOut' in='offOut' stdDeviation='10' />
-        <feBlend in='SourceGraphic' in2='blurOut' mode='normal' />
+      <filter id="global-shadow" x="0" y="0" width="200%" height="200%">
+        <feOffset result="offOut" in="SourceAlpha" dx="0" dy="20" />
+        <feGaussianBlur result="blurOut" in="offOut" stdDeviation="10" />
+        <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
       </filter>
     </defs>
   </svg>
@@ -55,14 +56,17 @@ const ShadowFilter = () => (
 const Section = styled.div`
   max-width: 80%;
   margin: 30px auto;
-  border-bottom: 1px solid ${WHITE_SEMI_SOLID};
+  border: 1px solid ${WHITE_SEMI_TRANSPARENT};
   background: ${BLACK_SEMI_TRANSPARENT};
 
   svg {
     margin: auto;
     font-weight: 900;
+    text-transform: uppercase;
   }
 `
+
+const randomWord = () => wordlist[Math.floor(Math.random() * wordlist.length)]
 
 const main = () => (
   <>
@@ -72,11 +76,11 @@ const main = () => (
       <Section>
         <ItemTitle>Linear gradient fill</ItemTitle>
         <LinearGradient
-          fontSize='4em'
+          fontSize="4em"
           fromColor={WHITE_SEMI_SOLID}
           toColor={WHITE_SEMI_TRANSPARENT}
         >
-          MUST
+          {randomWord()}
         </LinearGradient>
       </Section>
       <Section>
@@ -85,17 +89,17 @@ const main = () => (
           fromColor={WHITE_SEMI_SOLID}
           toColor={WHITE_SEMI_TRANSPARENT}
         >
-          Animated Gradient
+          {randomWord()}
         </AnimatedGradient>
       </Section>
       <Section>
         <ItemTitle>Static pattern fill</ItemTitle>
-        <PatternedText color={WHITE_SEMI_SOLID}>Patterned Text</PatternedText>
+        <PatternedText color={WHITE_SEMI_SOLID}>{randomWord()}</PatternedText>
       </Section>
       <Section>
         <ItemTitle>Animated pattern fill</ItemTitle>
         <AnimatedPattern color={WHITE_SEMI_SOLID}>
-          Animated pattern
+          {randomWord()}
         </AnimatedPattern>
       </Section>
       <Section>
@@ -104,7 +108,7 @@ const main = () => (
           fromColor={WHITE_SEMI_SOLID}
           toColor={WHITE_SEMI_TRANSPARENT}
         >
-          Animated Stroke
+          {randomWord()}
         </AnimatedStroke>
       </Section>
       <Section>
@@ -112,7 +116,7 @@ const main = () => (
         <AnimatedStrokeMulti
           colors={[WHITE_SEMI_SOLID, WHITE_SEMI_TRANSPARENT]}
         >
-          Multiple Strokes
+          {randomWord()}
         </AnimatedStrokeMulti>
       </Section>
       <Section>
@@ -122,7 +126,7 @@ const main = () => (
           secondaryColor={WHITE_SEMI_TRANSPARENT}
           strokeColor={WHITE_SEMI_SOLID}
         >
-          ClipPath text
+          {randomWord()}
         </ClipPathText>
       </Section>
     </Background>

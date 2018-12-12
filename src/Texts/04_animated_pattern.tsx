@@ -7,7 +7,7 @@ import {
   DEFAULT_PATTERN,
   Pattern
 } from '~/Texts/common'
-import { range } from '~/util'
+import { range, generateId, getURI } from '~/util'
 
 type SpotsProps = {
   color: string
@@ -64,11 +64,13 @@ const PatternContent = ({ pattern }: PatternProps) => {
   return <>{Circles}</>
 }
 
+const animationId = generateId()
+
 const AnimatedPatternText = ({ color, children }: Props) => (
   <DefaultContainer>
     <defs>
       <pattern
-        id="spots-animated"
+        id={animationId}
         viewBox="0 0 80 80"
         patternUnits="userSpaceOnUse"
         width="80"
@@ -79,7 +81,7 @@ const AnimatedPatternText = ({ color, children }: Props) => (
         </PatternGroup>
       </pattern>
     </defs>
-    <TextView fontSize="4.5em" color={color} fill="url(#spots-animated)">
+    <TextView fontSize="4.5em" color={color} fill={getURI(animationId)}>
       {children}
     </TextView>
   </DefaultContainer>

@@ -1,3 +1,5 @@
+import uuid from 'uuid'
+
 export function range(start: number, finish: number): Array<number> {
   const length = Math.abs(finish - start)
   if (length == 0) {
@@ -16,3 +18,7 @@ export function range(start: number, finish: number): Array<number> {
 
   return result
 }
+
+export const generateId: () => string = uuid.v4
+
+export const getURI = (id: string) => `url(#${id})`
