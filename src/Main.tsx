@@ -11,14 +11,18 @@ import AnimatedStrokeMulti from '~/Texts/06_animated_stroke_multi'
 const WHITE_SEMI_SOLID = 'rgba(255, 255, 255, 0.9)'
 const WHITE_SEMI_TRANSPARENT = 'rgba(255, 255, 255, 0.1)'
 
+const PURPLEISH_LESS = '#0f0c29'
+const PURPLEISH = '#302b63'
+const PURPLEISH_MORE = '#24243e'
+
 const Background = styled.div`
   width: 100%;
   height: 100%;
   background: radial-gradient(
     ellipse at top center,
-    #1e5799 0%,
-    #2989d8 50%,
-    #7db9e8 100%
+    ${PURPLEISH_LESS} 0%,
+    ${PURPLEISH} 50%,
+    ${PURPLEISH_MORE} 100%
   );
   text-align: center;
   position: fixed;
@@ -32,7 +36,7 @@ const ItemTitle = styled.h1`
 
 const Section = styled.div`
   max-width: 80%;
-  margin: auto;
+  margin: 30px auto;
   border-bottom: 1px solid ${WHITE_SEMI_SOLID};
 
   svg {
