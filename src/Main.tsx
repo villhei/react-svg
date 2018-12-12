@@ -70,12 +70,6 @@ const main = () => (
     <Background>
       <PageTitle>SVG pattern and fill examples</PageTitle>
       <Section>
-        <ItemTitle>ClipPath text</ItemTitle>
-        <ClipPathText fromColor={PURPLEISH} toColor={WHITE_SEMI_TRANSPARENT}>
-          ClipPath text
-        </ClipPathText>
-      </Section>
-      <Section>
         <ItemTitle>Linear gradient fill</ItemTitle>
         <LinearGradient
           fromColor={WHITE_SEMI_SOLID}
@@ -119,6 +113,16 @@ const main = () => (
         >
           Multiple Strokes
         </AnimatedStrokeMulti>
+      </Section>
+      <Section>
+        <ItemTitle>ClipPath text</ItemTitle>
+        <ClipPathText
+          primaryColor={PURPLEISH}
+          secondaryColor={WHITE_SEMI_TRANSPARENT}
+          strokeColor={WHITE_SEMI_SOLID}
+        >
+          ClipPath text
+        </ClipPathText>
       </Section>
     </Background>
   </>
