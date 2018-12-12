@@ -10,6 +10,7 @@ import AnimatedStrokeMulti from '~/Texts/06_animated_stroke_multi'
 
 const WHITE_SEMI_SOLID = 'rgba(255, 255, 255, 0.9)'
 const WHITE_SEMI_TRANSPARENT = 'rgba(255, 255, 255, 0.1)'
+const BLACK_SEMI_TRANSPARENT = 'rgba(0, 0, 0, 0.1)'
 
 const PURPLEISH_LESS = '#0f0c29'
 const PURPLEISH = '#302b63'
@@ -30,14 +31,20 @@ const Background = styled.div`
   font-family: 'Roboto', sans-serif;
 `
 
-const ItemTitle = styled.h1`
+const PageTitle = styled.h1`
   color: ${WHITE_SEMI_SOLID};
+  font-weight: 400;
+`
+const ItemTitle = styled.h2`
+  color: ${WHITE_SEMI_SOLID};
+  font-weight: 400;
 `
 
 const Section = styled.div`
   max-width: 80%;
   margin: 30px auto;
   border-bottom: 1px solid ${WHITE_SEMI_SOLID};
+  background: ${BLACK_SEMI_TRANSPARENT};
 
   svg {
     margin: auto;
@@ -48,6 +55,7 @@ const Section = styled.div`
 const main = () => (
   <>
     <Background>
+      <PageTitle>SVG pattern and fill examples</PageTitle>
       <Section>
         <ItemTitle>Linear gradient fill</ItemTitle>
         <LinearGradient
