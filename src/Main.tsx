@@ -41,6 +41,17 @@ const ItemTitle = styled.h2`
   font-weight: 400;
 `
 
+const ShadowFilter = () => (
+  <svg style={{ visibility: 'hidden' }}>
+    <defs>
+      <filter id='global-shadow' x='0' y='0' width='200%' height='200%'>
+        <feOffset result='offOut' in='SourceAlpha' dx='0' dy='20' />
+        <feGaussianBlur result='blurOut' in='offOut' stdDeviation='10' />
+        <feBlend in='SourceGraphic' in2='blurOut' mode='normal' />
+      </filter>
+    </defs>
+  </svg>
+)
 const Section = styled.div`
   max-width: 80%;
   margin: 30px auto;
@@ -55,6 +66,7 @@ const Section = styled.div`
 
 const main = () => (
   <>
+    <ShadowFilter />
     <Background>
       <PageTitle>SVG pattern and fill examples</PageTitle>
       <Section>

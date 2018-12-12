@@ -1,6 +1,6 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import { DefaultContainer } from '~/Texts/common'
+import { DefaultContainer, TextView } from '~/Texts/common'
 
 const Text = styled.text`
   font-size: 4.5rem;
@@ -12,7 +12,7 @@ const Text = styled.text`
 type Props = {
   toColor: string
   fromColor: string
-  children: React.ReactNode
+  children: string
 }
 
 const AnimatedStrokeText = ({ toColor, fromColor, children }: Props) => (
@@ -29,15 +29,14 @@ const AnimatedStrokeText = ({ toColor, fromColor, children }: Props) => (
         <stop stopColor={toColor} offset='100%' />
       </radialGradient>
     </defs>
-    <Text
-      textAnchor='middle'
-      x='50%'
-      y='50%'
-      dy='.35em'
+    <TextView
+      fontSize='4.5em'
+      shadow={true}
+      fill='transparent'
       stroke='url(#gradient)'
     >
       {children}
-    </Text>
+    </TextView>
   </DefaultContainer>
 )
 

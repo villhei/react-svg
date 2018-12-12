@@ -7,13 +7,14 @@ type ContainerProps = {
   children?: React.ReactNode
 }
 
-const DEFAULT_PROPS = {
+const DEFAULT_CONTAINER_PROPS = {
   width: '600px',
   height: '150px',
   children: null
 }
+
 export const DefaultContainer = (props?: ContainerProps) => {
-  const { width, height, children } = { ...DEFAULT_PROPS, ...props }
+  const { width, height, children } = { ...DEFAULT_CONTAINER_PROPS, ...props }
 
   const Svg = styled.svg`
     width: ${width};
@@ -27,6 +28,45 @@ export const DefaultContainer = (props?: ContainerProps) => {
     height: '0.2vw'
   }
   return <Svg {...svgProps}>{children}</Svg>
+}
+
+type TextViewProps = {
+  color?: string
+  fontSize?: string
+  fill?: string
+  stroke?: string
+  children: string
+  shadow?: boolean
+}
+
+const DEFAULT_TEXTVIEW_PROPS = {
+  fontSize: '5rem',
+  fontWeight: 550,
+  fill: undefined,
+  stroke: undefined,
+  shadow: false
+}
+
+export const TextView = (props: TextViewProps) => {
+  const { color, fill, stroke, fontSize, children, shadow } = {
+    ...DEFAULT_TEXTVIEW_PROPS,
+    ...props
+  }
+  const Text = styled.text`
+    font-size: ${fontSize};
+    font-weight: 550;
+  `
+  const textViewProps = {
+    color,
+    textAnchor: 'middle',
+    x: '50%',
+    y: '50%',
+    dy: '.35em',
+    filter: 'url(#global-shadow)' || undefined,
+    fill,
+    stroke
+  }
+  return <Text {...textViewProps}>{children}</Text>
 }
 
 export type Pattern = Array<number[]>

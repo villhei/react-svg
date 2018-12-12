@@ -1,15 +1,14 @@
 import * as React from 'react'
 import styled, { css } from 'styled-components'
 import { transparentize } from 'polished'
-import { DefaultContainer, Pattern, DEFAULT_PATTERN } from '~/Texts/common'
+import {
+  DefaultContainer,
+  TextView,
+  Pattern,
+  DEFAULT_PATTERN
+} from '~/Texts/common'
 import { range } from '~/util'
 
-const Text = styled.text`
-  font-size: 4.5rem;
-  font-weight: 550;
-  stroke-width: 0.5;
-  stroke: ${props => props.color};
-`
 type SpotsProps = {
   color: string
   count: number
@@ -37,7 +36,7 @@ const Circle = styled.circle`
 
 type Props = {
   color: string
-  children: React.ReactNode
+  children: string
 }
 
 const RADIUS_MULTIPLIER = 1.7
@@ -71,16 +70,9 @@ const PatternedText = ({ color, children }: Props) => (
         </Pattern>
       </pattern>
     </defs>
-    <Text
-      textAnchor='middle'
-      x='50%'
-      y='50%'
-      dy='.35em'
-      color={color}
-      fill='url(#spots)'
-    >
+    <TextView shadow={true} color={color} fill='url(#spots)'>
       {children}
-    </Text>
+    </TextView>
   </DefaultContainer>
 )
 

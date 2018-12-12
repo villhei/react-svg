@@ -1,16 +1,11 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import { DefaultContainer } from '~/Texts/common'
-
-const Text = styled.text`
-  font-size: 4rem;
-  font-weight: 550;
-`
+import { DefaultContainer, TextView } from '~/Texts/common'
 
 type Props = {
   fromColor: string
   toColor: string
-  children: React.ReactNode
+  children: string
 }
 
 const RadialGradientText = (props: Props) => {
@@ -29,15 +24,9 @@ const RadialGradientText = (props: Props) => {
           <stop stopColor={fromColor} offset='100%' />
         </radialGradient>
       </defs>
-      <Text
-        textAnchor='middle'
-        x='50%'
-        y='50%'
-        dy='.35em'
-        fill='url(#gr-radial)'
-      >
+      <TextView fontSize='4.5em' fill='url(#gr-radial)'>
         {props.children}
-      </Text>
+      </TextView>
     </DefaultContainer>
   )
 }

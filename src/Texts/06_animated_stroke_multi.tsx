@@ -46,7 +46,13 @@ type Props = {
 const AnimatedStrokeMultiText = ({ colors, children }: Props) => (
   <DefaultContainer>
     <symbol id='s-text'>
-      <text textAnchor='middle' x='50%' y='50%' dy='.35em'>
+      <text
+        textAnchor='middle'
+        x='50%'
+        y='50%'
+        dy='.35em'
+        filter='url(#global-shadow)'
+      >
         {children}
       </text>
     </symbol>

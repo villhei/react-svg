@@ -1,16 +1,11 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import { DefaultContainer } from '~/Texts/common'
-
-const TextView = styled.text`
-  font-size: 5rem;
-  font-weight: 550;
-`
+import { DefaultContainer, TextView } from '~/Texts/common'
 
 type Props = {
   fromColor: string
   toColor: string
-  children: React.ReactNode
+  children: string
 }
 
 const LinearGradientText = (props: Props) => (
@@ -21,13 +16,7 @@ const LinearGradientText = (props: Props) => (
         <stop stopColor={props.toColor} offset='90%' />
       </linearGradient>
     </defs>
-    <TextView
-      textAnchor='middle'
-      x='50%'
-      y='50%'
-      dy='.35em'
-      fill='url(#gr-simple)'
-    >
+    <TextView shadow={true} fill='url(#gr-simple)'>
       {props.children}
     </TextView>
   </DefaultContainer>
