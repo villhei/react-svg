@@ -7,6 +7,7 @@ import PatternedText from '~/Texts/03_pattern_text'
 import AnimatedPattern from '~/Texts/04_animated_pattern'
 import AnimatedStroke from '~/Texts/05_animated_stroke'
 import AnimatedStrokeMulti from '~/Texts/06_animated_stroke_multi'
+import ClipPathText from '~/Texts/07_clippath'
 
 const WHITE_SEMI_SOLID = 'rgba(255, 255, 255, 0.9)'
 const WHITE_SEMI_TRANSPARENT = 'rgba(255, 255, 255, 0.1)'
@@ -56,6 +57,12 @@ const main = () => (
   <>
     <Background>
       <PageTitle>SVG pattern and fill examples</PageTitle>
+      <Section>
+        <ItemTitle>ClipPath text</ItemTitle>
+        <ClipPathText fromColor={PURPLEISH} toColor={WHITE_SEMI_TRANSPARENT}>
+          ClipPath text
+        </ClipPathText>
+      </Section>
       <Section>
         <ItemTitle>Linear gradient fill</ItemTitle>
         <LinearGradient
