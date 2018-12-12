@@ -223,6 +223,8 @@ Procne
 Philomela
 Semele
 Icarus
-`.split('\n')
+`
+  .split('\n')
+  .filter(word => word.length < 9)
 
 export default WORD_LIST

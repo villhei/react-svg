@@ -33,6 +33,7 @@ export const DefaultContainer = (props?: ContainerProps) => {
 type TextViewProps = {
   color?: string
   fontSize?: string
+  strokeWidth?: string
   fill?: string
   stroke?: string
   children: string
@@ -41,6 +42,7 @@ type TextViewProps = {
 
 const DEFAULT_TEXTVIEW_PROPS = {
   fontSize: '4em',
+  strokeWidth: undefined,
   fontWeight: 550,
   fill: undefined,
   stroke: undefined,
@@ -48,7 +50,7 @@ const DEFAULT_TEXTVIEW_PROPS = {
 }
 
 export const TextView = (props: TextViewProps) => {
-  const { color, fill, stroke, fontSize, children } = {
+  const { color, fill, stroke, strokeWidth, fontSize, children } = {
     ...DEFAULT_TEXTVIEW_PROPS,
     ...props
   }
@@ -64,7 +66,8 @@ export const TextView = (props: TextViewProps) => {
     dy: '.35em',
     filter: 'url(#global-shadow)' || undefined,
     fill,
-    stroke
+    stroke,
+    strokeWidth
   }
   return <Text {...textViewProps}>{children}</Text>
 }

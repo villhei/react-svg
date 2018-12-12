@@ -13,21 +13,21 @@ const animationId = generateId()
 const AnimatedStrokeText = ({ toColor, fromColor, children }: Props) => (
   <DefaultContainer>
     <defs>
-      <radialGradient id={animationId} cx='50%' cy='50%' r='100%'>
+      <radialGradient id={animationId} cx="50%" cy="50%" r="100%">
         <animate
-          attributeName='cx'
-          values='0%;150%;-50%;0%'
-          dur='5s'
-          repeatCount='indefinite'
+          attributeName="cx"
+          values="0%;150%;-50%;0%"
+          dur="5s"
+          repeatCount="indefinite"
         />
-        <stop stopColor={fromColor} offset='0' />
-        <stop stopColor={toColor} offset='100%' />
+        <stop stopColor={fromColor} offset="0" />
+        <stop stopColor={toColor} offset="100%" />
       </radialGradient>
     </defs>
     <TextView
-      fontSize='4.5em'
+      strokeWidth="4"
       shadow={true}
-      fill='transparent'
+      fill="transparent"
       stroke={getURI(animationId)}
     >
       {children}
