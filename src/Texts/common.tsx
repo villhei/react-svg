@@ -40,7 +40,7 @@ type TextViewProps = {
 }
 
 const DEFAULT_TEXTVIEW_PROPS = {
-  fontSize: '5rem',
+  fontSize: '8rem',
   fontWeight: 550,
   fill: undefined,
   stroke: undefined,
@@ -48,7 +48,7 @@ const DEFAULT_TEXTVIEW_PROPS = {
 }
 
 export const TextView = (props: TextViewProps) => {
-  const { color, fill, stroke, fontSize, children, shadow } = {
+  const { color, fill, stroke, fontSize, children } = {
     ...DEFAULT_TEXTVIEW_PROPS,
     ...props
   }

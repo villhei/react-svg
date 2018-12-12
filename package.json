@@ -23,7 +23,8 @@
     "start": "parcel src/index.html",
     "build": "parcel build src/index.html",
     "build:github": "rm -rf docs && parcel build --public-url .  src/index.html -d docs",
-    "lint": "tslint --project .",
+    "lint": "tslint --fix --project .",
+    "prettier": "prettier",
     "test": "jest"
   },
   "dependencies": {

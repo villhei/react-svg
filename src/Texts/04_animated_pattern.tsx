@@ -55,32 +55,31 @@ type PatternProps = {
   pattern: Pattern
 }
 
-const PatternContent = ({ pattern }: PatternProps) => (
-  <>
-    {pattern
-      .map(([radius, ...rest]) => [radius * RADIUS_MULTIPLIER, ...rest])
-      .map(([radius, center_x, center_y], index) => (
-        <Circle r={radius} cx={center_x} cy={center_y} key={index} />
-      ))}
-  </>
-)
+const PatternContent = ({ pattern }: PatternProps) => {
+  const Circles = pattern
+    .map(([radius, ...rest]) => [radius * RADIUS_MULTIPLIER, ...rest])
+    .map(([radius, center_x, center_y], index) => (
+      <Circle r={radius} cx={center_x} cy={center_y} key={index} />
+    ))
+  return <>{Circles}</>
+}
 
 const AnimatedPatternText = ({ color, children }: Props) => (
   <DefaultContainer>
     <defs>
       <pattern
-        id='spots-animated'
-        viewBox='0 0 80 80'
-        patternUnits='userSpaceOnUse'
-        width='80'
-        height='80'
+        id="spots-animated"
+        viewBox="0 0 80 80"
+        patternUnits="userSpaceOnUse"
+        width="80"
+        height="80"
       >
         <PatternGroup color={color} count={DEFAULT_PATTERN.length}>
           <PatternContent pattern={DEFAULT_PATTERN} />
         </PatternGroup>
       </pattern>
     </defs>
-    <TextView fontSize='4.5em' color={color} fill='url(#spots-animated)'>
+    <TextView fontSize="4.5em" color={color} fill="url(#spots-animated)">
       {children}
     </TextView>
   </DefaultContainer>

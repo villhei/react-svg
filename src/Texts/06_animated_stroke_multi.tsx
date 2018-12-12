@@ -36,7 +36,9 @@ function getText(colors: string[]): JSX.Element[] {
       `
     })}
   `
-  return colors.map(() => <Text as='use' xlinkHref='#s-text' />)
+  return colors.map((_color, i) => (
+    <Text as="use" key={i} xlinkHref="#s-text" />
+  ))
 }
 type Props = {
   colors: string[]
@@ -45,13 +47,13 @@ type Props = {
 
 const AnimatedStrokeMultiText = ({ colors, children }: Props) => (
   <DefaultContainer>
-    <symbol id='s-text'>
+    <symbol id="s-text">
       <text
-        textAnchor='middle'
-        x='50%'
-        y='50%'
-        dy='.35em'
-        filter='url(#global-shadow)'
+        textAnchor="middle"
+        x="50%"
+        y="50%"
+        dy=".35em"
+        filter="url(#global-shadow)"
       >
         {children}
       </text>

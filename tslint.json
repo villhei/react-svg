@@ -1,8 +1,7 @@
 {
-  "extends": ["typestrict", "tslint-config-prettier"],
+  "extends": ["typestrict", "tslint-config-prettier", "tslint-react"],
   "rules": {
     "semicolon": [true, "never"],
-    "quotemark": [true, "single", "avoid-escape"],
     "no-unused-variable": false
   }
 }

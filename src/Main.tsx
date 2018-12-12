@@ -72,10 +72,11 @@ const main = () => (
       <Section>
         <ItemTitle>Linear gradient fill</ItemTitle>
         <LinearGradient
+          fontSize='4em'
           fromColor={WHITE_SEMI_SOLID}
           toColor={WHITE_SEMI_TRANSPARENT}
         >
-          Basic Gradient
+          MUST
         </LinearGradient>
       </Section>
       <Section>
