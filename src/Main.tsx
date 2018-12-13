@@ -2,6 +2,7 @@ import * as React from 'react'
 import styled from 'styled-components'
 import wordlist from '~/wordlist'
 
+import Panel from '~/Panel'
 import LinearGradient from '~/Texts/01_linear_gradient'
 import AnimatedGradient from '~/Texts/02_radial_gradient'
 import PatternedText from '~/Texts/03_pattern_text'
@@ -73,6 +74,7 @@ const main = () => (
     <ShadowFilter />
     <Background>
       <PageTitle>SVG pattern and fill examples</PageTitle>
+      <Panel />
       <Section>
         <ItemTitle>Linear gradient fill</ItemTitle>
         <LinearGradient
