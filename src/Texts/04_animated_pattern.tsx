@@ -45,8 +45,9 @@ const Circle = styled.circle`
 `
 
 type Props = {
+  fontSize?: number
   color: string
-  children: string
+  text: string
 }
 
 const RADIUS_MULTIPLIER = 1.7
@@ -66,7 +67,7 @@ const PatternContent = ({ pattern }: PatternProps) => {
 
 const animationId = generateId()
 
-const AnimatedPatternText = ({ color, children }: Props) => (
+const AnimatedPatternText = ({ color, text, fontSize }: Props) => (
   <DefaultContainer>
     <defs>
       <pattern
@@ -81,8 +82,8 @@ const AnimatedPatternText = ({ color, children }: Props) => (
         </PatternGroup>
       </pattern>
     </defs>
-    <TextView fontSize="4.5em" color={color} fill={getURI(animationId)}>
-      {children}
+    <TextView fontSize={fontSize} color={color} fill={getURI(animationId)}>
+      {text}
     </TextView>
   </DefaultContainer>
 )

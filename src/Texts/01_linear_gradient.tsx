@@ -5,8 +5,8 @@ import { generateId, getURI } from '~/util'
 type Props = {
   fromColor: string
   toColor: string
-  children: string
-  fontSize?: string
+  text: string
+  fontSize?: number
 }
 
 const gradientId = generateId()
@@ -20,7 +20,7 @@ const LinearGradientText = (props: Props) => (
       </linearGradient>
     </defs>
     <TextView fontSize={props.fontSize} shadow={true} fill={getURI(gradientId)}>
-      {props.children}
+      {props.text}
     </TextView>
   </DefaultContainer>
 )

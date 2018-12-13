@@ -4,10 +4,8 @@ import { DefaultContainer, TextView } from '~/Texts/common'
 import { generateId, getURI } from '~/util'
 
 type Props = {
-  primaryColor: string
-  secondaryColor: string
-  strokeColor: string
-  children: string
+  colors: [string, string, string]
+  text: string
 }
 
 const strokeTextId = generateId()
@@ -21,24 +19,24 @@ const FilledCircle = styled.circle`
 `
 
 const ClipPathText = ({
-  primaryColor,
-  secondaryColor,
-  strokeColor,
-  children
+  colors: [primaryColor, secondaryColor, strokeColor],
+  text
 }: Props) => {
   const TextStroke = styled.text`
     stroke: ${strokeColor};
     fill: none;
     stroke-width: 5;
   `
+
+  console.log('text', text)
   return (
     <DefaultContainer>
       <symbol id={strokeTextId}>
-        <TextView>{children}</TextView>
+        <TextView>{text}</TextView>
       </symbol>
 
       <clipPath id={clipPathTextId}>
-        <TextView>{children}</TextView>
+        <TextView>{text}</TextView>
       </clipPath>
 
       <pattern
@@ -50,7 +48,7 @@ const ClipPathText = ({
       >
         <rect width="100%" height="100%" fill={primaryColor} />
 
-        <g stroke={secondaryColor} stroke-width="20">
+        <g stroke={secondaryColor} strokeWidth="20">
           <path d="M25,0 25,100" />
         </g>
       </pattern>

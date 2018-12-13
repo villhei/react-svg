@@ -2,7 +2,7 @@ import * as React from 'react'
 import styled from 'styled-components'
 import wordlist from '~/wordlist'
 
-import Panel from '~/Panel'
+import ControlsContainer from '~/ControlsContainer'
 import LinearGradient from '~/Texts/01_linear_gradient'
 import AnimatedGradient from '~/Texts/02_radial_gradient'
 import PatternedText from '~/Texts/03_pattern_text'
@@ -69,102 +69,110 @@ const Section = styled.div`
   }
 `
 
-const PanelContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-
-  .control-panel {
-    flex: 1;
-  }
-  svg {
-    flex: 1;
-    margin: auto;
-    font-weight: 900;
-    text-transform: uppercase;
-  }
-`
-
 const randomWord = () => wordlist[Math.floor(Math.random() * wordlist.length)]
 
-type Config = [string, string, (props: any) => JSX.Element, object]
+type ComponentProps = {
+  text: string
+  fontSize?: number
+  fromColor?: string
+  toColor?: string
+  color?: string
+  colors?: string[]
+}
+
+const DEFAULTS: ComponentProps = {
+  text: 'foo',
+  fontSize: 4.5
+}
+
+type Config = [string, (props: any) => JSX.Element, ComponentProps]
+
+const PROPS_FIELD = 2
 
 const COMPONENTS_CONFIGURATION: Array<Config> = [
   [
     'Linear gradient',
-    randomWord(),
     LinearGradient,
     {
-      fontSize: '4em',
+      ...DEFAULTS,
+      text: randomWord(),
       fromColor: WHITE_SEMI_SOLID,
       toColor: WHITE_SEMI_TRANSPARENT
     }
   ],
   [
     'Animated gradient fill',
-    randomWord(),
     AnimatedGradient,
     {
+      ...DEFAULTS,
+      text: randomWord(),
       fromColor: WHITE_SEMI_SOLID,
       toColor: WHITE_SEMI_TRANSPARENT
     }
   ],
   [
     'Static pattern fill',
-    randomWord(),
     PatternedText,
     {
+      ...DEFAULTS,
+      text: randomWord(),
       color: WHITE_SEMI_SOLID
     }
   ],
   [
     'Stroke animation',
-    randomWord(),
     AnimatedStroke,
     {
+      ...DEFAULTS,
+      text: randomWord(),
       fromColor: WHITE_SEMI_SOLID,
       toColor: WHITE_SEMI_TRANSPARENT
     }
   ],
   [
     'Animated pattern fill',
-    randomWord(),
     AnimatedPattern,
     {
+      ...DEFAULTS,
+      text: randomWord(),
       color: WHITE_SEMI_SOLID
     }
   ],
   [
     'Multi-color stroke animation',
-    randomWord(),
     AnimatedStrokeMulti,
     {
+      ...DEFAULTS,
+      text: randomWord(),
       colors: [WHITE_SEMI_SOLID, WHITE_SEMI_TRANSPARENT]
     }
   ],
   [
     'Pattern with clip-path',
-    randomWord(),
     ClipPathText,
     {
-      primaryColor: PURPLEISH,
-      secondaryColor: WHITE_SEMI_TRANSPARENT,
-      strokeColor: WHITE_SEMI_SOLID
+      ...DEFAULTS,
+      text: randomWord(),
+      colors: [PURPLEISH, WHITE_SEMI_TRANSPARENT, WHITE_SEMI_SOLID]
     }
   ]
 ]
 
-class Main extends React.Component {
+class Main extends React.Component<{}> {
   render() {
     const sections = COMPONENTS_CONFIGURATION.map(
-      ([label, text, Element, props]) => (
-        <Section>
-          <ItemTitle>{label}</ItemTitle>
-          <PanelContainer>
-            <Element {...props}>{text}</Element>
-            <Panel />
-          </PanelContainer>
-        </Section>
-      )
+      ([label, Element, props], index: number) => {
+        return (
+          <Section key={index}>
+            <ControlsContainer
+              key={index}
+              element={Element}
+              config={props}
+              label={label}
+            />
+          </Section>
+        )
+      }
     )
     return (
       <>
