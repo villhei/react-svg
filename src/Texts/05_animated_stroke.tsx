@@ -1,16 +1,24 @@
 import * as React from 'react'
-import { DefaultContainer, TextView } from '~/Texts/common'
+import { DefaultContainer, TextView, getGradientStops } from '~/Texts/common'
 import { generateId, getURI } from '~/util'
 
 type Props = {
-  toColor: string
-  fromColor: string
-  children: string
+  fontSize?: number
+  strokeWidth: number
+  shadow: boolean
+  colors: string[]
+  text: string
 }
 
 const animationId = generateId()
 
-const AnimatedStrokeText = ({ toColor, fromColor, children }: Props) => (
+const AnimatedStrokeText = ({
+  colors,
+  text,
+  fontSize,
+  shadow,
+  strokeWidth
+}: Props) => (
   <DefaultContainer>
     <defs>
       <radialGradient id={animationId} cx="50%" cy="50%" r="100%">
@@ -20,17 +28,17 @@ const AnimatedStrokeText = ({ toColor, fromColor, children }: Props) => (
           dur="5s"
           repeatCount="indefinite"
         />
-        <stop stopColor={fromColor} offset="0" />
-        <stop stopColor={toColor} offset="100%" />
+        {getGradientStops(colors)}
       </radialGradient>
     </defs>
     <TextView
-      strokeWidth="4"
-      shadow={true}
+      strokeWidth={strokeWidth}
+      fontSize={fontSize}
+      shadow={shadow}
       fill="transparent"
       stroke={getURI(animationId)}
     >
-      {children}
+      {text}
     </TextView>
   </DefaultContainer>
 )

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import styled, { css, keyframes } from 'styled-components'
-import { DefaultContainer } from '~/Texts/common'
+import { DefaultContainer, TextView } from '~/Texts/common'
 import { getURI, generateId } from '~/util'
 
 const ANIM_SECONDS = 6
@@ -21,8 +21,6 @@ function getText(colors: string[]): JSX.Element[] {
     }
   `
   const Text = styled.text`
-    font-size: 4.5rem;
-    font-weight: 550;
     stroke-width: 3;
     fill: transparent;
     stroke-linejoin: round;
@@ -43,23 +41,32 @@ function getText(colors: string[]): JSX.Element[] {
     <Text as="use" key={i} xlinkHref={`#${strokeTextId}`} />
   ))
 }
+
 type Props = {
+  shadow: boolean
+  fontSize?: number
+  strokeWidth?: number
   colors: string[]
-  children: React.ReactNode
+  text: string
 }
 
-const AnimatedStrokeMultiText = ({ colors, children }: Props) => (
+const AnimatedStrokeMultiText = ({
+  shadow,
+  colors,
+  text,
+  strokeWidth = 4,
+  fontSize = 4
+}: Props) => (
   <DefaultContainer>
     <symbol id={strokeTextId}>
-      <text
-        textAnchor="middle"
-        x="50%"
-        y="50%"
-        dy=".35em"
+      <TextView
+        shadow={shadow}
+        fontSize={fontSize}
+        strokeWidth={strokeWidth}
         filter={getURI('global-shadow')}
       >
-        {children}
-      </text>
+        {text}
+      </TextView>
     </symbol>
     <g>{getText(colors)}</g>
   </DefaultContainer>

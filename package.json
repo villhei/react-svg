@@ -34,6 +34,7 @@
     "@types/uuid": "^3.4.4",
     "polished": "^2.3.1",
     "react": "^16.6.3",
+    "react-control-panel": "^0.3.2",
     "react-dom": "^16.6.3",
     "styled-components": "^4.1.2"
   },

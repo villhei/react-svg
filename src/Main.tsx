@@ -2,6 +2,7 @@ import * as React from 'react'
 import styled from 'styled-components'
 import wordlist from '~/wordlist'
 
+import ControlsContainer from '~/ControlsContainer'
 import LinearGradient from '~/Texts/01_linear_gradient'
 import AnimatedGradient from '~/Texts/02_radial_gradient'
 import PatternedText from '~/Texts/03_pattern_text'
@@ -37,10 +38,6 @@ const PageTitle = styled.h1`
   color: ${WHITE_SEMI_SOLID};
   font-weight: 400;
 `
-const ItemTitle = styled.h2`
-  color: ${WHITE_SEMI_SOLID};
-  font-weight: 400;
-`
 
 const ShadowFilter = () => (
   <svg style={{ visibility: 'hidden' }}>
@@ -53,84 +50,139 @@ const ShadowFilter = () => (
     </defs>
   </svg>
 )
+
+const ItemTitle = styled.h2`
+  color: ${WHITE_SEMI_SOLID};
+  font-weight: 400;
+`
+
 const Section = styled.div`
   max-width: 80%;
   margin: 30px auto;
   border: 1px solid ${WHITE_SEMI_TRANSPARENT};
   background: ${BLACK_SEMI_TRANSPARENT};
+  display: flex;
+  flex-direction: column;
 
-  svg {
-    margin: auto;
-    font-weight: 900;
-    text-transform: uppercase;
+  ${ItemTitle} {
+    display: block;
   }
 `
 
 const randomWord = () => wordlist[Math.floor(Math.random() * wordlist.length)]
 
-const main = () => (
-  <>
-    <ShadowFilter />
-    <Background>
-      <PageTitle>SVG pattern and fill examples</PageTitle>
-      <Section>
-        <ItemTitle>Linear gradient fill</ItemTitle>
-        <LinearGradient
-          fontSize="4em"
-          fromColor={WHITE_SEMI_SOLID}
-          toColor={WHITE_SEMI_TRANSPARENT}
-        >
-          {randomWord()}
-        </LinearGradient>
-      </Section>
-      <Section>
-        <ItemTitle>Animated gradient fill</ItemTitle>
-        <AnimatedGradient
-          fromColor={WHITE_SEMI_SOLID}
-          toColor={WHITE_SEMI_TRANSPARENT}
-        >
-          {randomWord()}
-        </AnimatedGradient>
-      </Section>
-      <Section>
-        <ItemTitle>Static pattern fill</ItemTitle>
-        <PatternedText color={WHITE_SEMI_SOLID}>{randomWord()}</PatternedText>
-      </Section>
-      <Section>
-        <ItemTitle>Animated pattern fill</ItemTitle>
-        <AnimatedPattern color={WHITE_SEMI_SOLID}>
-          {randomWord()}
-        </AnimatedPattern>
-      </Section>
-      <Section>
-        <ItemTitle>Stroke animation</ItemTitle>
-        <AnimatedStroke
-          fromColor={WHITE_SEMI_SOLID}
-          toColor={WHITE_SEMI_TRANSPARENT}
-        >
-          {randomWord()}
-        </AnimatedStroke>
-      </Section>
-      <Section>
-        <ItemTitle>Multi-color stroke animation</ItemTitle>
-        <AnimatedStrokeMulti
-          colors={[WHITE_SEMI_SOLID, WHITE_SEMI_TRANSPARENT]}
-        >
-          {randomWord()}
-        </AnimatedStrokeMulti>
-      </Section>
-      <Section>
-        <ItemTitle>ClipPath text</ItemTitle>
-        <ClipPathText
-          primaryColor={PURPLEISH}
-          secondaryColor={WHITE_SEMI_TRANSPARENT}
-          strokeColor={WHITE_SEMI_SOLID}
-        >
-          {randomWord()}
-        </ClipPathText>
-      </Section>
-    </Background>
-  </>
-)
+type ComponentProps = {
+  text: string
+  shadow: boolean
+  strokeWidth?: number
+  fontSize?: number
+  color?: string
+  colors?: string[]
+}
 
-export default main
+const DEFAULTS: ComponentProps = {
+  text: 'foo',
+  fontSize: 4.5,
+  shadow: true
+}
+
+type Config = [string, (props: any) => JSX.Element, ComponentProps]
+
+const COMPONENTS_CONFIGURATION: Array<Config> = [
+  [
+    'Linear gradient',
+    LinearGradient,
+    {
+      ...DEFAULTS,
+      text: randomWord(),
+      colors: [WHITE_SEMI_SOLID, WHITE_SEMI_TRANSPARENT]
+    }
+  ],
+  [
+    'Animated gradient fill',
+    AnimatedGradient,
+    {
+      ...DEFAULTS,
+      text: randomWord(),
+      colors: [WHITE_SEMI_SOLID, WHITE_SEMI_TRANSPARENT]
+    }
+  ],
+  [
+    'Static pattern fill',
+    PatternedText,
+    {
+      ...DEFAULTS,
+      text: randomWord(),
+      color: WHITE_SEMI_SOLID
+    }
+  ],
+  [
+    'Stroke animation',
+    AnimatedStroke,
+    {
+      ...DEFAULTS,
+      text: randomWord(),
+      strokeWidth: 4,
+      colors: [WHITE_SEMI_SOLID, WHITE_SEMI_TRANSPARENT]
+    }
+  ],
+  [
+    'Animated pattern fill',
+    AnimatedPattern,
+    {
+      ...DEFAULTS,
+      text: randomWord(),
+      color: WHITE_SEMI_SOLID
+    }
+  ],
+  [
+    'Multi-color stroke animation',
+    AnimatedStrokeMulti,
+    {
+      ...DEFAULTS,
+      strokeWidth: 4,
+      text: randomWord(),
+      colors: [WHITE_SEMI_SOLID, WHITE_SEMI_TRANSPARENT]
+    }
+  ],
+  [
+    'Pattern with clip-path',
+    ClipPathText,
+    {
+      ...DEFAULTS,
+      strokeWidth: 5,
+      text: randomWord(),
+      colors: [PURPLEISH, WHITE_SEMI_TRANSPARENT, WHITE_SEMI_SOLID]
+    }
+  ]
+]
+
+class Main extends React.Component<{}> {
+  render() {
+    const sections = COMPONENTS_CONFIGURATION.map(
+      ([label, Element, props], index: number) => {
+        return (
+          <Section key={index}>
+            <ControlsContainer
+              key={index}
+              element={Element}
+              config={props}
+              label={label}
+            />
+          </Section>
+        )
+      }
+    )
+    return (
+      <>
+        <ShadowFilter />
+        <Background>
+          <PageTitle>SVG pattern and fill examples</PageTitle>
+          {sections}
+        </Background>
+      </>
+    )
+  }
+}
+
+export default Main

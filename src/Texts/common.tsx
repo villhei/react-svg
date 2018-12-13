@@ -2,14 +2,14 @@ import * as React from 'react'
 import styled from 'styled-components'
 
 type ContainerProps = {
-  width?: string
-  height?: string
+  width?: number
+  height?: number
   children?: React.ReactNode
 }
 
 const DEFAULT_CONTAINER_PROPS = {
-  width: '400px',
-  height: '150px',
+  width: 400,
+  height: 150,
   children: null
 }
 
@@ -17,8 +17,8 @@ export const DefaultContainer = (props?: ContainerProps) => {
   const { width, height, children } = { ...DEFAULT_CONTAINER_PROPS, ...props }
 
   const Svg = styled.svg`
-    width: ${width};
-    height: ${height};
+    width: ${width}px;
+    height: ${height}px;
     display: block;
   `
 
@@ -32,30 +32,41 @@ export const DefaultContainer = (props?: ContainerProps) => {
 
 type TextViewProps = {
   color?: string
-  fontSize?: string
-  strokeWidth?: string
-  fill?: string
-  stroke?: string
+  fontSize?: number
+  strokeWidth?: number
   children: string
+  fill?: string
+  filter?: string
+  stroke?: string
   shadow?: boolean
 }
 
 const DEFAULT_TEXTVIEW_PROPS = {
-  fontSize: '4em',
+  fontSize: 4,
   strokeWidth: undefined,
   fontWeight: 550,
   fill: undefined,
+  filter: undefined,
   stroke: undefined,
   shadow: false
 }
 
 export const TextView = (props: TextViewProps) => {
-  const { color, fill, stroke, strokeWidth, fontSize, children } = {
+  const {
+    color,
+    fill,
+    filter,
+    stroke,
+    strokeWidth,
+    fontSize,
+    children,
+    shadow
+  } = {
     ...DEFAULT_TEXTVIEW_PROPS,
     ...props
   }
   const Text = styled.text`
-    font-size: ${fontSize};
+    font-size: ${fontSize}em;
     font-weight: 550;
   `
   const textViewProps = {
@@ -64,7 +75,7 @@ export const TextView = (props: TextViewProps) => {
     x: '50%',
     y: '50%',
     dy: '.35em',
-    filter: 'url(#global-shadow)' || undefined,
+    filter: filter ? filter : shadow ? 'url(#global-shadow)' : undefined,
     fill,
     stroke,
     strokeWidth
@@ -76,10 +87,15 @@ export type Pattern = Array<number[]>
 
 export const DEFAULT_PATTERN: Pattern = [
   [10, 20, 20],
-  [7, 50, 0],
   [11, 70, 30],
   [13, 50, 50],
-  [7, 10, 50],
   [9, 30, 70],
   [11, 70, 70]
 ]
+
+export const getGradientStops = (colors: string[]) => {
+  const offsetStep = 100 / (colors.length - 1)
+  return colors.map((color, n) => (
+    <stop key={n} stopColor={color} offset={`${offsetStep * n}%`} />
+  ))
+}
