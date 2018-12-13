@@ -33,7 +33,7 @@ export const DefaultContainer = (props?: ContainerProps) => {
 type TextViewProps = {
   color?: string
   fontSize?: number
-  strokeWidth?: string
+  strokeWidth?: number
   children: string
   fill?: string
   filter?: string
@@ -92,3 +92,10 @@ export const DEFAULT_PATTERN: Pattern = [
   [9, 30, 70],
   [11, 70, 70]
 ]
+
+export const getGradientStops = (colors: string[]) => {
+  const offsetStep = 100 / (colors.length - 1)
+  return colors.map((color, n) => (
+    <stop key={n} stopColor={color} offset={`${offsetStep * n}%`} />
+  ))
+}

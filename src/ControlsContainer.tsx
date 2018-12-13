@@ -2,7 +2,6 @@ import * as React from 'react'
 import styled from 'styled-components'
 
 import Panel from '~/Panel'
-import { textInputs } from 'polished'
 
 const Container = styled.div`
   display: flex;
@@ -21,6 +20,7 @@ const Container = styled.div`
 
 export type ComponentProps = {
   text: string
+  strokeWidth?: number
   fontSize?: number
   fromColor?: string
   toColor?: string
@@ -47,18 +47,20 @@ export default class ControlsContainer extends React.Component<Props, State> {
   }
 
   render() {
-    const props = this.state
     const { element, label } = this.props
     const Element = element
+
+    const config = (this.state.colors || []).reduce(
+      (acc, color: string, n: number) => ({
+        ...acc,
+        [`colors_${n}`]: color
+      }),
+      this.state
+    )
     return (
       <Container>
         <Element {...this.state} />
-        <Panel
-          title={label}
-          text={props.text}
-          fontSize={props.fontSize}
-          onChange={this.onConfigChange}
-        />
+        <Panel title={label} config={config} onChange={this.onConfigChange} />
       </Container>
     )
   }

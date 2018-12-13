@@ -73,21 +73,20 @@ const randomWord = () => wordlist[Math.floor(Math.random() * wordlist.length)]
 
 type ComponentProps = {
   text: string
+  shadow: boolean
+  strokeWidth?: number
   fontSize?: number
-  fromColor?: string
-  toColor?: string
   color?: string
   colors?: string[]
 }
 
 const DEFAULTS: ComponentProps = {
   text: 'foo',
-  fontSize: 4.5
+  fontSize: 4.5,
+  shadow: true
 }
 
 type Config = [string, (props: any) => JSX.Element, ComponentProps]
-
-const PROPS_FIELD = 2
 
 const COMPONENTS_CONFIGURATION: Array<Config> = [
   [
@@ -96,8 +95,7 @@ const COMPONENTS_CONFIGURATION: Array<Config> = [
     {
       ...DEFAULTS,
       text: randomWord(),
-      fromColor: WHITE_SEMI_SOLID,
-      toColor: WHITE_SEMI_TRANSPARENT
+      colors: [WHITE_SEMI_SOLID, WHITE_SEMI_TRANSPARENT]
     }
   ],
   [
@@ -106,8 +104,7 @@ const COMPONENTS_CONFIGURATION: Array<Config> = [
     {
       ...DEFAULTS,
       text: randomWord(),
-      fromColor: WHITE_SEMI_SOLID,
-      toColor: WHITE_SEMI_TRANSPARENT
+      colors: [WHITE_SEMI_SOLID, WHITE_SEMI_TRANSPARENT]
     }
   ],
   [
@@ -125,8 +122,8 @@ const COMPONENTS_CONFIGURATION: Array<Config> = [
     {
       ...DEFAULTS,
       text: randomWord(),
-      fromColor: WHITE_SEMI_SOLID,
-      toColor: WHITE_SEMI_TRANSPARENT
+      strokeWidth: 4,
+      colors: [WHITE_SEMI_SOLID, WHITE_SEMI_TRANSPARENT]
     }
   ],
   [
@@ -143,6 +140,7 @@ const COMPONENTS_CONFIGURATION: Array<Config> = [
     AnimatedStrokeMulti,
     {
       ...DEFAULTS,
+      strokeWidth: 4,
       text: randomWord(),
       colors: [WHITE_SEMI_SOLID, WHITE_SEMI_TRANSPARENT]
     }
@@ -152,6 +150,7 @@ const COMPONENTS_CONFIGURATION: Array<Config> = [
     ClipPathText,
     {
       ...DEFAULTS,
+      strokeWidth: 5,
       text: randomWord(),
       colors: [PURPLEISH, WHITE_SEMI_TRANSPARENT, WHITE_SEMI_SOLID]
     }

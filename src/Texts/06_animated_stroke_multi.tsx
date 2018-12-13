@@ -43,15 +43,28 @@ function getText(colors: string[]): JSX.Element[] {
 }
 
 type Props = {
+  shadow: boolean
   fontSize?: number
+  strokeWidth?: number
   colors: string[]
   text: string
 }
 
-const AnimatedStrokeMultiText = ({ colors, text, fontSize = 4 }: Props) => (
+const AnimatedStrokeMultiText = ({
+  shadow,
+  colors,
+  text,
+  strokeWidth = 4,
+  fontSize = 4
+}: Props) => (
   <DefaultContainer>
     <symbol id={strokeTextId}>
-      <TextView fontSize={fontSize} filter={getURI('global-shadow')}>
+      <TextView
+        shadow={shadow}
+        fontSize={fontSize}
+        strokeWidth={strokeWidth}
+        filter={getURI('global-shadow')}
+      >
         {text}
       </TextView>
     </symbol>

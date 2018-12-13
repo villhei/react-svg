@@ -6,6 +6,9 @@ import { generateId, getURI } from '~/util'
 type Props = {
   colors: [string, string, string]
   text: string
+  strokeWidth?: number
+  fontSize: number
+  shadow: boolean
 }
 
 const strokeTextId = generateId()
@@ -20,31 +23,34 @@ const FilledCircle = styled.circle`
 
 const ClipPathText = ({
   colors: [primaryColor, secondaryColor, strokeColor],
-  text
+  text,
+  shadow,
+  strokeWidth,
+  fontSize
 }: Props) => {
   const TextStroke = styled.text`
     stroke: ${strokeColor};
     fill: none;
-    stroke-width: 5;
+    stroke-width: ${strokeWidth};
   `
-
-  console.log('text', text)
   return (
     <DefaultContainer>
       <symbol id={strokeTextId}>
-        <TextView>{text}</TextView>
+        <TextView fontSize={fontSize} shadow={shadow}>
+          {text}
+        </TextView>
       </symbol>
 
       <clipPath id={clipPathTextId}>
-        <TextView>{text}</TextView>
+        <TextView fontSize={fontSize}>{text}</TextView>
       </clipPath>
 
       <pattern
         id={patternId}
-        width="40"
-        height="50"
-        viewBox="0 0 40 50"
-        patternUnits="userSpaceOnUse"
+        width="0.1"
+        height="0.1"
+        viewBox="0 0 50 50"
+        patternUnits="objectBoundingBox"
       >
         <rect width="100%" height="100%" fill={primaryColor} />
 
@@ -56,7 +62,7 @@ const ClipPathText = ({
       <TextStroke as="use" xlinkHref={`#${strokeTextId}`} />
 
       <g clipPath={getURI(clipPathTextId)}>
-        <FilledCircle r="70%" cx="300" cy="150" />
+        <FilledCircle r="100%" cx="300" cy="150" />
       </g>
     </DefaultContainer>
   )

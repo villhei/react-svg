@@ -1,41 +1,45 @@
 import * as React from 'react'
-import ControlPanel, {
-  Button,
-  Checkbox,
-  Multibox,
-  Select,
-  Text,
-  Color,
-  Range,
-  Interval
-} from 'react-control-panel'
+import ControlPanel, { Text, Color, Range, Checkbox } from 'react-control-panel'
 
-const DEFAULT_STATE = {
-  fontSize: 4,
-  'range slider': 20,
-  'stepped slider': 0.6,
-  interval: [25, 50],
-  text: 'my setting',
-  checkbox: true,
-  'color rgb': 'rgb(100, 200, 100',
-  'color hex': '#30b2ba',
-  selection: 'option 1',
-  'multiple checkboxes': [true, true]
-}
-
-type Props<T> = {
+type Props = {
   title: string
-  text: string
-  fontSize?: number
+  config: any
   onChange: (config: any) => void
 }
 
-export default function<T>({ title, fontSize, text, onChange }: Props<T>) {
-  const state = { ...DEFAULT_STATE, fontSize, text }
+export default function({ title, config, onChange }: Props) {
+  const state = config
 
   const handleOnChange = (path: string, value: any) => {
-    onChange({ [path]: value })
+    if (path.indexOf('colors_') === 0) {
+      const [, rawN] = path.split('_')
+      const n = parseInt(rawN, 10)
+      const colors = Object.assign([], config.colors, { [n]: value })
+      onChange({ colors })
+    } else {
+      onChange({ [path]: value })
+    }
   }
+
+  const stroke = config.strokeWidth ? (
+    <Range label="strokeWidth" min={0.1} max={20} />
+  ) : (
+    undefined
+  )
+  const color = Boolean(config.color) ? (
+    <Color label="color" format="rgb" />
+  ) : (
+    undefined
+  )
+
+  const colorConfigs = Object.keys(config).filter(
+    value => value.indexOf('colors_') === 0
+  )
+
+  const colors = colorConfigs.map((_a: string, n: number) => (
+    <Color key={n} label={`colors_${n}`} format="rgb" />
+  ))
+
   return (
     <ControlPanel
       theme="dark"
@@ -43,20 +47,12 @@ export default function<T>({ title, fontSize, text, onChange }: Props<T>) {
       initialState={state}
       onChange={handleOnChange}
     >
-      <Range label="fontSize" min={0.1} max={10} />
-      <Range label="stepped slider" min={0} max={1} />
-      <Interval label="interval" min={0} max={100} />
       <Text label="text" />
-      <Checkbox label="checkbox" />
-      <Color label="color rgb" format="rgb" />
-      <Color label="color hex" format="hex" />
-      <Button label="gimme an alert" action={() => alert('clicked')} />
-      <Select label="selection" options={{ 'option 1': 1, 'option 2': 2 }} />
-      <Multibox
-        label="multiple checkboxes"
-        colors={['rgb(100,120,230)', 'rgb(210,100,190)']}
-        names={['box1', 'box2']}
-      />
+      <Range label="fontSize" min={0.1} max={10} />
+      {stroke}
+      {color}
+      {colors}
+      <Checkbox label="shadow" />
     </ControlPanel>
   )
 }

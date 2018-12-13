@@ -46,6 +46,7 @@ const Circle = styled.circle`
 
 type Props = {
   fontSize?: number
+  shadow: boolean
   color: string
   text: string
 }
@@ -67,22 +68,26 @@ const PatternContent = ({ pattern }: PatternProps) => {
 
 const animationId = generateId()
 
-const AnimatedPatternText = ({ color, text, fontSize }: Props) => (
+const AnimatedPatternText = ({ color, text, shadow, fontSize }: Props) => (
   <DefaultContainer>
     <defs>
       <pattern
         id={animationId}
-        viewBox="0 0 80 80"
-        patternUnits="userSpaceOnUse"
-        width="80"
-        height="80"
+        patternUnits="objectBoundingBox"
+        width="0.2"
+        height="0.53"
       >
         <PatternGroup color={color} count={DEFAULT_PATTERN.length}>
           <PatternContent pattern={DEFAULT_PATTERN} />
         </PatternGroup>
       </pattern>
     </defs>
-    <TextView fontSize={fontSize} color={color} fill={getURI(animationId)}>
+    <TextView
+      shadow={shadow}
+      fontSize={fontSize}
+      color={color}
+      fill={getURI(animationId)}
+    >
       {text}
     </TextView>
   </DefaultContainer>

@@ -24,7 +24,7 @@ const makeChildStyles = (count: number) =>
     `
   )
 
-const Pattern = styled.g`
+const GPattern = styled.g`
   ${(props: SpotsProps) => makeChildStyles(props.count)}
 `
 
@@ -36,6 +36,7 @@ const Circle = styled.circle`
 
 type Props = {
   fontSize: number
+  shadow: boolean
   color: string
   text: string
 }
@@ -57,24 +58,23 @@ const PatternContent = ({ pattern }: PatternProps) => {
 
 const patternId = generateId()
 
-const PatternedText = ({ fontSize, color, text }: Props) => (
+const PatternedText = ({ fontSize, shadow, color, text }: Props) => (
   <DefaultContainer>
     <defs>
       <pattern
         id={patternId}
-        viewBox="0 0 80 80"
-        patternUnits="userSpaceOnUse"
-        width="80"
-        height="80"
+        patternUnits="objectBoundingBox"
+        width="0.2"
+        height="0.53"
       >
-        <Pattern color={color} count={DEFAULT_PATTERN.length}>
+        <GPattern color={color} count={DEFAULT_PATTERN.length}>
           <PatternContent pattern={DEFAULT_PATTERN} />
-        </Pattern>
+        </GPattern>
       </pattern>
     </defs>
     <TextView
       fontSize={fontSize}
-      shadow={true}
+      shadow={shadow}
       color={color}
       fill={getURI(patternId)}
     >
