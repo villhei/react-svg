@@ -1,10 +1,11 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import { DefaultContainer, TextView } from '~/Texts/common'
+import { DefaultContainer, ComponentProps, TextView } from '~/Texts/common'
 import { generateId, getURI } from '~/util'
 
-type Props = {
+type Props = ComponentProps & {
   colors: [string, string, string]
+  opacities: [number, number, number]
   text: string
   strokeWidth?: number
   fontSize: number
@@ -23,6 +24,7 @@ const FilledCircle = styled.circle`
 
 const ClipPathText = ({
   colors: [primaryColor, secondaryColor, strokeColor],
+  opacities: [primaryOpacity, secondaryOpacity, strokeOpacity],
   text,
   shadow,
   strokeWidth,
@@ -30,6 +32,7 @@ const ClipPathText = ({
 }: Props) => {
   const TextStroke = styled.text`
     stroke: ${strokeColor};
+    stroke-opacity: ${strokeOpacity};
     fill: none;
     stroke-width: ${strokeWidth};
   `
@@ -52,9 +55,18 @@ const ClipPathText = ({
         viewBox="0 0 50 50"
         patternUnits="objectBoundingBox"
       >
-        <rect width="100%" height="100%" fill={primaryColor} />
+        <rect
+          width="100%"
+          height="100%"
+          fill={primaryColor}
+          fillOpacity={secondaryOpacity}
+        />
 
-        <g stroke={secondaryColor} strokeWidth="20">
+        <g
+          stroke={secondaryColor}
+          strokeOpacity={secondaryOpacity}
+          strokeWidth="20"
+        >
           <path d="M25,0 25,100" />
         </g>
       </pattern>

@@ -25,7 +25,8 @@
     "build:github": "rm -rf docs && parcel build --public-url .  src/index.html -d docs",
     "lint": "tslint --fix --project .",
     "prettier": "prettier",
-    "test": "jest"
+    "test": "jest",
+    "tsc": "tsc --project . --noEmit"
   },
   "dependencies": {
     "@types/react": "^16.7.13",

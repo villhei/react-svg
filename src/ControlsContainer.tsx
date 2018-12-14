@@ -26,6 +26,8 @@ export type ComponentProps = {
   toColor?: string
   color?: string
   colors?: string[]
+  opacity?: number
+  opacities?: number[]
 }
 
 type Props = {
@@ -35,6 +37,20 @@ type Props = {
 }
 
 type State = ComponentProps
+
+const assignArrayElements = (
+  state: State,
+  stateKey: string,
+  elements?: any[]
+) => {
+  return (elements || []).reduce(
+    (acc, elem: any, n: number) => ({
+      ...acc,
+      [`${stateKey}_${n}`]: elem
+    }),
+    state
+  )
+}
 
 export default class ControlsContainer extends React.Component<Props, State> {
   constructor(props: Props) {
@@ -50,13 +66,10 @@ export default class ControlsContainer extends React.Component<Props, State> {
     const { element, label } = this.props
     const Element = element
 
-    const config = (this.state.colors || []).reduce(
-      (acc, color: string, n: number) => ({
-        ...acc,
-        [`colors_${n}`]: color
-      }),
-      this.state
-    )
+    const { colors, opacities } = this.state
+
+    const withColors = assignArrayElements(this.state, 'colors', colors)
+    const config = assignArrayElements(withColors, 'opacities', opacities)
     return (
       <Container>
         <Element {...this.state} />

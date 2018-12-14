@@ -7,15 +7,25 @@ type Props = {
   onChange: (config: any) => void
 }
 
+function updateValues(
+  config: any,
+  property: string,
+  path: string,
+  value: string
+) {
+  const [, rawN] = path.split('_')
+  const n = parseInt(rawN, 10)
+  return Object.assign([], config[property], { [n]: value })
+}
+
 export default function({ title, config, onChange }: Props) {
   const state = config
 
   const handleOnChange = (path: string, value: any) => {
     if (path.indexOf('colors_') === 0) {
-      const [, rawN] = path.split('_')
-      const n = parseInt(rawN, 10)
-      const colors = Object.assign([], config.colors, { [n]: value })
-      onChange({ colors })
+      onChange({ colors: updateValues(config, 'colors', path, value) })
+    } else if (path.indexOf('opacities_') === 0) {
+      onChange({ opacities: updateValues(config, 'opacities', path, value) })
     } else {
       onChange({ [path]: value })
     }
@@ -37,7 +47,10 @@ export default function({ title, config, onChange }: Props) {
   )
 
   const colors = colorConfigs.map((_a: string, n: number) => (
-    <Color key={n} label={`colors_${n}`} format="rgb" />
+    <React.Fragment key={n}>
+      <Color label={`colors_${n}`} format="rgb" />
+      <Range label={`opacities_${n}`} min={0} max={1.0} />
+    </React.Fragment>
   ))
 
   return (

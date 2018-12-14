@@ -2,18 +2,19 @@ import * as React from 'react'
 import styled, { css, keyframes } from 'styled-components'
 import { DefaultContainer, ComponentProps, TextView } from '~/Texts/common'
 import { getURI, generateId } from '~/util'
+import monoton from './Monoton-Regular.ttf'
 
-const ANIM_SECONDS = 6
-const LINE_LENGTH = 70
-const LINE_GAP = 10
+const ANIM_SECONDS = 10
+const LINE_LENGTH = 150
+const LINE_GAP = 150
 
 const strokeTextId = generateId()
 
+const blurFilterId = generateId()
+
 function getText(colors: string[], opacities: number[]): JSX.Element[] {
   const colorCount = colors.length
-  const space = LINE_LENGTH * (colorCount - 1) + LINE_GAP * colorCount
   const offset = (LINE_LENGTH + LINE_GAP) * colorCount
-  const step = ANIM_SECONDS / colorCount
 
   const anim = keyframes`
     100% {
@@ -21,10 +22,15 @@ function getText(colors: string[], opacities: number[]): JSX.Element[] {
     }
   `
   const Text = styled.text`
+    @font-face {
+      font-family: 'Monoton';
+      src: url(${monoton});
+    }
     stroke-width: 3;
+    font-family: 'Monoton';
     fill: transparent;
     stroke-linejoin: round;
-    stroke-dasharray: ${LINE_LENGTH} ${space};
+    stroke-dasharray: ${LINE_LENGTH} ${LINE_GAP};
     stroke-dashoffset: 0;
     animation: ${anim} ${ANIM_SECONDS}s infinite linear;
     ${colors.map((color, i) => {
@@ -32,7 +38,6 @@ function getText(colors: string[], opacities: number[]): JSX.Element[] {
       return css`
         &:nth-child(${n}) {
           stroke: ${color};
-          animation-delay: -${step * n}s;
         }
       `
     })}
@@ -42,6 +47,7 @@ function getText(colors: string[], opacities: number[]): JSX.Element[] {
       as="use"
       strokeOpacity={opacities[i]}
       key={i}
+      filter={i === 0 ? getURI(blurFilterId) : undefined}
       xlinkHref={`#${strokeTextId}`}
     />
   ))
@@ -65,13 +71,13 @@ const AnimatedStrokeMultiText = ({
   fontSize = 4
 }: Props) => (
   <DefaultContainer>
+    <defs>
+      <filter id={blurFilterId}>
+        <feGaussianBlur in="SourceGraphic" stdDeviation="2" />
+      </filter>
+    </defs>
     <symbol id={strokeTextId}>
-      <TextView
-        shadow={shadow}
-        fontSize={fontSize}
-        strokeWidth={strokeWidth}
-        filter={getURI('global-shadow')}
-      >
+      <TextView fontSize={fontSize} shadow={shadow} strokeWidth={strokeWidth}>
         {text}
       </TextView>
     </symbol>
