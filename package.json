@@ -26,7 +26,8 @@
     "lint": "tslint --fix --project .",
     "prettier": "prettier",
     "test": "jest",
-    "tsc": "tsc --project . --noEmit"
+    "tsc": "tsc --project . --noEmit",
+    "release": "rm -r docs && yarn build:github && git add docs && git commit -m \"Update release\""
   },
   "dependencies": {
     "@types/react": "^16.7.13",
