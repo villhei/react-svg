@@ -1,10 +1,16 @@
 import * as React from 'react'
-import { DefaultContainer, TextView, getGradientStops } from '~/Texts/common'
+import {
+  DefaultContainer,
+  ComponentProps,
+  TextView,
+  getGradientStops
+} from '~/Texts/common'
 import { generateId, getURI } from '~/util'
 
-type Props = {
+type Props = ComponentProps & {
   fontSize?: number
   colors: string[]
+  opacities: number[]
   text: string
   shadow: boolean
 }
@@ -12,8 +18,8 @@ type Props = {
 const gradientId = generateId()
 
 const RadialGradientText = (props: Props) => {
-  const { fontSize, colors, shadow } = props
-  const stops = getGradientStops(colors)
+  const { fontSize, colors, opacities, shadow } = props
+  const stops = getGradientStops(colors, opacities)
   return (
     <DefaultContainer>
       <defs>

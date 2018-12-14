@@ -3,6 +3,7 @@ import styled, { css, keyframes } from 'styled-components'
 import { transparentize } from 'polished'
 import {
   DefaultContainer,
+  ComponentProps,
   TextView,
   DEFAULT_PATTERN,
   Pattern
@@ -44,7 +45,7 @@ const Circle = styled.circle`
   fill: transparent;
 `
 
-type Props = {
+type Props = ComponentProps & {
   fontSize?: number
   shadow: boolean
   color: string

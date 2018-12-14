@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import wordlist from '~/wordlist'
 
 import ControlsContainer from '~/ControlsContainer'
+import { ComponentProps, DEFAULTS } from '~/Texts/common'
+
 import LinearGradient from '~/Texts/01_linear_gradient'
 import AnimatedGradient from '~/Texts/02_radial_gradient'
 import PatternedText from '~/Texts/03_pattern_text'
@@ -10,7 +12,9 @@ import AnimatedPattern from '~/Texts/04_animated_pattern'
 import AnimatedStroke from '~/Texts/05_animated_stroke'
 import AnimatedStrokeMulti from '~/Texts/06_animated_stroke_multi'
 import ClipPathText from '~/Texts/07_clippath'
+import AnimatedStrokeMultiVariant from '~/Texts/08_animated_stroke_multi_neon_effect'
 
+const WHITE = '#FFFFFF'
 const WHITE_SEMI_SOLID = 'rgba(255, 255, 255, 0.9)'
 const WHITE_SEMI_TRANSPARENT = 'rgba(255, 255, 255, 0.1)'
 const BLACK_SEMI_TRANSPARENT = 'rgba(0, 0, 0, 0.1)'
@@ -71,21 +75,6 @@ const Section = styled.div`
 
 const randomWord = () => wordlist[Math.floor(Math.random() * wordlist.length)]
 
-type ComponentProps = {
-  text: string
-  shadow: boolean
-  strokeWidth?: number
-  fontSize?: number
-  color?: string
-  colors?: string[]
-}
-
-const DEFAULTS: ComponentProps = {
-  text: 'foo',
-  fontSize: 4.5,
-  shadow: true
-}
-
 type Config = [string, (props: any) => JSX.Element, ComponentProps]
 
 const COMPONENTS_CONFIGURATION: Array<Config> = [
@@ -95,7 +84,8 @@ const COMPONENTS_CONFIGURATION: Array<Config> = [
     {
       ...DEFAULTS,
       text: randomWord(),
-      colors: [WHITE_SEMI_SOLID, WHITE_SEMI_TRANSPARENT]
+      colors: [WHITE, WHITE],
+      opacities: [0.1, 0.9]
     }
   ],
   [
@@ -104,7 +94,8 @@ const COMPONENTS_CONFIGURATION: Array<Config> = [
     {
       ...DEFAULTS,
       text: randomWord(),
-      colors: [WHITE_SEMI_SOLID, WHITE_SEMI_TRANSPARENT]
+      colors: [WHITE, WHITE],
+      opacities: [0.1, 0.9]
     }
   ],
   [
@@ -113,7 +104,8 @@ const COMPONENTS_CONFIGURATION: Array<Config> = [
     {
       ...DEFAULTS,
       text: randomWord(),
-      color: WHITE_SEMI_SOLID
+      color: WHITE,
+      opacity: 0.9
     }
   ],
   [
@@ -123,7 +115,8 @@ const COMPONENTS_CONFIGURATION: Array<Config> = [
       ...DEFAULTS,
       text: randomWord(),
       strokeWidth: 4,
-      colors: [WHITE_SEMI_SOLID, WHITE_SEMI_TRANSPARENT]
+      colors: [WHITE, WHITE],
+      opacities: [0.1, 0.9]
     }
   ],
   [
@@ -132,7 +125,8 @@ const COMPONENTS_CONFIGURATION: Array<Config> = [
     {
       ...DEFAULTS,
       text: randomWord(),
-      color: WHITE_SEMI_SOLID
+      color: WHITE_SEMI_SOLID,
+      opacity: 0.9
     }
   ],
   [
@@ -142,7 +136,8 @@ const COMPONENTS_CONFIGURATION: Array<Config> = [
       ...DEFAULTS,
       strokeWidth: 4,
       text: randomWord(),
-      colors: [WHITE_SEMI_SOLID, WHITE_SEMI_TRANSPARENT]
+      colors: [WHITE, WHITE],
+      opacities: [0.1, 0.9]
     }
   ],
   [
@@ -150,9 +145,21 @@ const COMPONENTS_CONFIGURATION: Array<Config> = [
     ClipPathText,
     {
       ...DEFAULTS,
-      strokeWidth: 5,
+      strokeWidth: 2,
       text: randomWord(),
-      colors: [PURPLEISH, WHITE_SEMI_TRANSPARENT, WHITE_SEMI_SOLID]
+      colors: [PURPLEISH, WHITE, WHITE],
+      opacities: [1.0, 0.1, 0.9]
+    }
+  ],
+  [
+    'Multi-color stroke animation variant',
+    AnimatedStrokeMultiVariant,
+    {
+      ...DEFAULTS,
+      strokeWidth: 1.5,
+      text: randomWord(),
+      colors: [WHITE, WHITE],
+      opacities: [0.1, 0.9]
     }
   ]
 ]

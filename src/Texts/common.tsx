@@ -1,10 +1,28 @@
 import * as React from 'react'
 import styled from 'styled-components'
 
-type ContainerProps = {
+export type ContainerProps = {
   width?: number
   height?: number
   children?: React.ReactNode
+}
+
+export const DEFAULTS: ComponentProps = {
+  text: 'foo',
+  fontSize: 4.5,
+  shadow: true
+}
+
+export type ComponentProps = {
+  text: string
+  shadow: boolean
+  strokeWidth?: number
+  strokeOpacity?: number
+  fontSize?: number
+  color?: string
+  opacity?: number
+  colors?: string[]
+  opacities?: number[]
 }
 
 const DEFAULT_CONTAINER_PROPS = {
@@ -24,6 +42,7 @@ export const DefaultContainer = (props?: ContainerProps) => {
 
   const svgProps = {
     viewBox: `0 0 ${width} ${height}`,
+    preserveAspectRatio: 'xMidYMid meet',
     width: '0.8vw',
     height: '0.2vw'
   }
@@ -93,9 +112,14 @@ export const DEFAULT_PATTERN: Pattern = [
   [11, 70, 70]
 ]
 
-export const getGradientStops = (colors: string[]) => {
+export const getGradientStops = (colors: string[], opacities: number[]) => {
   const offsetStep = 100 / (colors.length - 1)
   return colors.map((color, n) => (
-    <stop key={n} stopColor={color} offset={`${offsetStep * n}%`} />
+    <stop
+      key={n}
+      stopColor={color}
+      stopOpacity={opacities[n]}
+      offset={`${offsetStep * n}%`}
+    />
   ))
 }

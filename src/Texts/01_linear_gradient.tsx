@@ -1,9 +1,15 @@
 import * as React from 'react'
-import { DefaultContainer, TextView, getGradientStops } from '~/Texts/common'
+import {
+  DefaultContainer,
+  ComponentProps,
+  TextView,
+  getGradientStops
+} from '~/Texts/common'
 import { generateId, getURI } from '~/util'
 
-type Props = {
+type Props = ComponentProps & {
   colors: string[]
+  opacities: number[]
   shadow: boolean
   text: string
   fontSize?: number
@@ -12,7 +18,7 @@ type Props = {
 const gradientId = generateId()
 
 const LinearGradientText = (props: Props) => {
-  const stops = getGradientStops(props.colors)
+  const stops = getGradientStops(props.colors, props.opacities)
   return (
     <DefaultContainer>
       <defs>
